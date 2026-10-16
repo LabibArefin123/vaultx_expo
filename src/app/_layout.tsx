@@ -1,18 +1,77 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { COLORS } from "@/constants/vault";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <>
+      <StatusBar style="dark" backgroundColor={COLORS.background} />
+
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: COLORS.primary,
+          tabBarInactiveTintColor: COLORS.muted,
+          tabBarStyle: {
+            height: 68,
+            paddingTop: 8,
+            paddingBottom: 10,
+            backgroundColor: COLORS.surface,
+            borderTopColor: COLORS.border,
+            elevation: 8,
+          },
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: "600",
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: "Vault",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="key-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="favorites"
+          options={{
+            title: "Favorites",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: "Settings",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="settings-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 }
