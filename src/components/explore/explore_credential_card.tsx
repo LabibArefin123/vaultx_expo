@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
-import { COLORS, DEMO_CREDENTIALS } from "@/constants/vault";
+import { COLORS } from "@/constants/vault";
+import type { Credential } from "@/types/credential.types";
 
 import { credentialStyles } from "@/styles/explore/explore_credential.styles";
-
-type Credential = (typeof DEMO_CREDENTIALS)[number];
 
 type ExploreCredentialCardProps = {
   item: Credential;
@@ -14,8 +14,24 @@ type ExploreCredentialCardProps = {
 export default function ExploreCredentialCard({
   item,
 }: ExploreCredentialCardProps) {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push({
+      pathname: "/credential/[id]",
+      params: {
+        id: String(item.id),
+      },
+    });
+  };
+
   return (
-    <View style={credentialStyles.credentialCard}>
+    <Pressable
+      onPress={handlePress}
+      style={credentialStyles.credentialCard}
+      accessibilityRole="button"
+      accessibilityLabel={`Open ${item.title}`}
+    >
       <View
         style={[
           credentialStyles.credentialIcon,
@@ -31,16 +47,22 @@ export default function ExploreCredentialCard({
 
       <View style={credentialStyles.credentialInfo}>
         <View style={credentialStyles.nameRow}>
-          <Text style={credentialStyles.credentialTitle}>{item.title}</Text>
+          <Text style={credentialStyles.credentialTitle} numberOfLines={1}>
+            {item.title}
+          </Text>
 
           {item.favorite && (
             <Ionicons name="heart" size={14} color={COLORS.danger} />
           )}
         </View>
 
-        <Text style={credentialStyles.username}>{item.username}</Text>
+        <Text style={credentialStyles.username} numberOfLines={1}>
+          {item.username || "No username"}
+        </Text>
 
-        <Text style={credentialStyles.website}>{item.website}</Text>
+        <Text style={credentialStyles.website} numberOfLines={1}>
+          {item.website || "No website"}
+        </Text>
       </View>
 
       <View style={credentialStyles.trailing}>
@@ -48,6 +70,6 @@ export default function ExploreCredentialCard({
 
         <Ionicons name="chevron-forward" size={17} color={COLORS.muted} />
       </View>
-    </View>
+    </Pressable>
   );
 }

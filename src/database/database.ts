@@ -1,8 +1,6 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 
-export async function initializeDatabase(
-  db: SQLiteDatabase,
-): Promise<void> {
+export async function initializeDatabase(db: SQLiteDatabase): Promise<void> {
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
 
@@ -27,4 +25,28 @@ export async function initializeDatabase(
     CREATE INDEX IF NOT EXISTS idx_credentials_favorite
     ON credentials(favorite);
   `);
+  await db.execAsync(`
+  CREATE TABLE IF NOT EXISTS user_profile (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    name TEXT NOT NULL DEFAULT 'VaultX User',
+    email TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  );
+
+  INSERT OR IGNORE INTO user_profile (
+    id,
+    name,
+    email,
+    created_at,
+    updated_at
+  )
+  VALUES (
+    1,
+    'VaultX User',
+    '',
+    datetime('now'),
+    datetime('now')
+  );
+`);
 }

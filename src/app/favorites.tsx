@@ -1,7 +1,8 @@
-import { ScrollView, Text } from "react-native";
+import { ActivityIndicator, ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { DEMO_CREDENTIALS } from "@/constants/vault";
+import { COLORS } from "@/constants/vault";
+import { useCredentials } from "@/hooks/use_credentials";
 
 import {
   FavoritesHeader,
@@ -12,7 +13,9 @@ import {
 import { mainStyles } from "@/styles/favorites/favorites_main.styles";
 
 export default function FavoritesScreen() {
-  const favorites = DEMO_CREDENTIALS.filter((item) => item.favorite);
+  const { credentials, loading } = useCredentials();
+
+  const favorites = credentials.filter((item) => item.favorite);
 
   return (
     <SafeAreaView style={mainStyles.safeArea}>
@@ -24,7 +27,11 @@ export default function FavoritesScreen() {
 
         <FavoritesSummary count={favorites.length} />
 
-        <FavoritesCredentialList credentials={favorites} />
+        {loading ? (
+          <ActivityIndicator size="large" color={COLORS.gold} />
+        ) : (
+          <FavoritesCredentialList credentials={favorites} />
+        )}
 
         <Text style={mainStyles.footer}>
           VaultX · Your passwords, protected.
