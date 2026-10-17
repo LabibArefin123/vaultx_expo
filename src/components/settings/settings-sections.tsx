@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
+import type { ReactNode } from "react";
+import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import {
   SettingAction,
   SettingRow,
   SettingsSeparator,
 } from "@/components/settings/setting-row";
-import { COLORS } from "@/constants/vault";
-import { styles } from "@/styles/settings/setting_components.styles";
+
+import { sectionStyles } from "@/styles/settings/settings-section.styles";
 
 type SettingsSectionsProps = {
   biometric: boolean;
@@ -15,7 +17,6 @@ type SettingsSectionsProps = {
   onBiometricChange: (value: boolean) => void;
   onAutoLockChange: (value: boolean) => void;
   onClipboardChange: (value: boolean) => void;
-  onPreview: (feature: string) => void;
 };
 
 function SettingsSection({
@@ -23,12 +24,12 @@ function SettingsSection({
   children,
 }: {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <View style={styles.settingsCard}>{children}</View>
+      <Text style={sectionStyles.sectionTitle}>{title}</Text>
+      <View style={sectionStyles.settingsCard}>{children}</View>
     </>
   );
 }
@@ -40,8 +41,9 @@ export default function SettingsSections({
   onBiometricChange,
   onAutoLockChange,
   onClipboardChange,
-  onPreview,
 }: SettingsSectionsProps) {
+  const router = useRouter();
+
   return (
     <>
       <SettingsSection title="Security">
@@ -79,7 +81,7 @@ export default function SettingsSections({
           icon="shuffle-outline"
           title="Password Generator"
           description="Generate strong passwords"
-          onPress={() => onPreview("Password generator")}
+          onPress={() => router.push("/password-generator")}
         />
 
         <SettingsSeparator />
@@ -88,7 +90,7 @@ export default function SettingsSections({
           icon="analytics-outline"
           title="Security Audit"
           description="Review your password security"
-          onPress={() => onPreview("Security audit")}
+          onPress={() => router.push("/security-audit")}
         />
       </SettingsSection>
 
@@ -97,7 +99,7 @@ export default function SettingsSections({
           icon="shield-outline"
           title="Privacy Policy"
           description="Learn how your data is protected"
-          onPress={() => onPreview("Privacy policy")}
+          onPress={() => router.push("/privacy-policy")}
         />
 
         <SettingsSeparator />
@@ -106,7 +108,7 @@ export default function SettingsSections({
           icon="information-circle-outline"
           title="About VaultX"
           description="Version 1.0.0"
-          onPress={() => onPreview("About VaultX")}
+          onPress={() => router.push("/about")}
         />
       </SettingsSection>
     </>

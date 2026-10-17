@@ -1,3 +1,4 @@
+
 import { StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/vault";
@@ -23,6 +24,7 @@ export const rowStyles = StyleSheet.create({
   },
   settingInfo: {
     flex: 1,
+    minWidth: 0,
     marginLeft: 11,
     marginRight: 8,
   },

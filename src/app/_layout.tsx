@@ -1,17 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { SQLiteProvider } from "expo-sqlite";
+import { StatusBar } from "expo-status-bar";
 
 import { COLORS } from "@/constants/vault";
 import { initializeDatabase } from "@/database/database";
 
-function AppTabs() {
+export default function RootLayout() {
   return (
-    <>
+    <SQLiteProvider databaseName="vaultx.db" onInit={initializeDatabase}>
       <StatusBar style="dark" backgroundColor={COLORS.background} />
 
       <Tabs
+        initialRouteName="index"
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: COLORS.primary,
@@ -74,35 +75,17 @@ function AppTabs() {
           }}
         />
 
-        <Tabs.Screen
-          name="add-credential"
-          options={{
-            href: null,
-          }}
-        />
+        {/* Hidden screens - not displayed in bottom navigation */}
 
-        <Tabs.Screen
-          name="credential/[id]"
-          options={{
-            href: null,
-          }}
-        />
+        <Tabs.Screen name="add-credential" options={{ href: null }} />
+        <Tabs.Screen name="credential/[id]" options={{ href: null }} />
+        <Tabs.Screen name="edit-credential/[id]" options={{ href: null }} />
 
-        <Tabs.Screen
-          name="edit-credential/[id]"
-          options={{
-            href: null,
-          }}
-        />
+        <Tabs.Screen name="password-generator" options={{ href: null }} />
+        <Tabs.Screen name="security-audit" options={{ href: null }} />
+        <Tabs.Screen name="privacy-policy" options={{ href: null }} />
+        <Tabs.Screen name="about" options={{ href: null }} />
       </Tabs>
-    </>
-  );
-}
-
-export default function RootLayout() {
-  return (
-    <SQLiteProvider databaseName="vaultx.db" onInit={initializeDatabase}>
-      <AppTabs />
     </SQLiteProvider>
   );
 }

@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Switch, Text, View } from "react-native";
 
 import { COLORS } from "@/constants/vault";
-import { styles } from "@/styles/settings/setting_components.styles";
+import { rowStyles } from "@/styles/settings/settings-row.styles";
 
 type SettingRowProps = {
   icon: keyof typeof Ionicons.glyphMap;
@@ -27,14 +27,14 @@ export function SettingRow({
   onValueChange,
 }: SettingRowProps) {
   return (
-    <View style={styles.settingRow}>
-      <View style={styles.settingIcon}>
+    <View style={rowStyles.settingRow}>
+      <View style={rowStyles.settingIcon}>
         <Ionicons name={icon} size={20} color={COLORS.primary} />
       </View>
 
-      <View style={styles.settingInfo}>
-        <Text style={styles.settingTitle}>{title}</Text>
-        <Text style={styles.settingDescription}>{description}</Text>
+      <View style={rowStyles.settingInfo}>
+        <Text style={rowStyles.settingTitle}>{title}</Text>
+        <Text style={rowStyles.settingDescription}>{description}</Text>
       </View>
 
       <Switch
@@ -57,14 +57,18 @@ export function SettingAction({
   onPress,
 }: SettingActionProps) {
   return (
-    <Pressable style={styles.actionRow} onPress={onPress}>
-      <View style={styles.settingIcon}>
+    <Pressable
+      style={rowStyles.actionRow}
+      onPress={onPress}
+      accessibilityRole="button"
+    >
+      <View style={rowStyles.settingIcon}>
         <Ionicons name={icon} size={20} color={COLORS.primary} />
       </View>
 
-      <View style={styles.settingInfo}>
-        <Text style={styles.settingTitle}>{title}</Text>
-        <Text style={styles.settingDescription}>{description}</Text>
+      <View style={rowStyles.settingInfo}>
+        <Text style={rowStyles.settingTitle}>{title}</Text>
+        <Text style={rowStyles.settingDescription}>{description}</Text>
       </View>
 
       <Ionicons name="chevron-forward" size={18} color={COLORS.muted} />
@@ -73,5 +77,5 @@ export function SettingAction({
 }
 
 export function SettingsSeparator() {
-  return <View style={styles.separator} />;
+  return <View style={rowStyles.separator} />;
 }
