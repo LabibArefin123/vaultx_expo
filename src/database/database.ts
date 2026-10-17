@@ -49,4 +49,15 @@ export async function initializeDatabase(db: SQLiteDatabase): Promise<void> {
     datetime('now')
   );
 `);
+  await db.execAsync(`
+  CREATE TABLE IF NOT EXISTS biometric_settings (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    enabled INTEGER NOT NULL DEFAULT 0,
+    authentication_type TEXT,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+
+  INSERT OR IGNORE INTO biometric_settings (id, enabled)
+  VALUES (1, 0);
+`);
 }

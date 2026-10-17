@@ -31,6 +31,8 @@ export default function RootLayout() {
           },
         }}
       >
+        {/* Main Bottom Navigation */}
+
         <Tabs.Screen
           name="index"
           options={{
@@ -75,15 +77,26 @@ export default function RootLayout() {
           }}
         />
 
-        {/* Hidden screens - not displayed in bottom navigation */}
+        {/* Hidden Authentication Routes */}
+
+        <Tabs.Screen name="biometric-login" options={{ href: null }} />
+
+        {/* Hidden Credential Routes */}
 
         <Tabs.Screen name="add-credential" options={{ href: null }} />
+
         <Tabs.Screen name="credential/[id]" options={{ href: null }} />
+
         <Tabs.Screen name="edit-credential/[id]" options={{ href: null }} />
 
+        {/* Hidden Utility Routes */}
+
         <Tabs.Screen name="password-generator" options={{ href: null }} />
+
         <Tabs.Screen name="security-audit" options={{ href: null }} />
+
         <Tabs.Screen name="privacy-policy" options={{ href: null }} />
+
         <Tabs.Screen name="about" options={{ href: null }} />
       </Tabs>
     </SQLiteProvider>

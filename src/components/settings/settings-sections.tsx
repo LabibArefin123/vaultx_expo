@@ -4,9 +4,14 @@ import { useRouter } from "expo-router";
 
 import {
   SettingAction,
-  SettingRow,
   SettingsSeparator,
 } from "@/components/settings/setting-row";
+
+import {
+  BiometricSetting,
+  AutomaticLockSetting,
+  ClipboardProtectionSetting,
+} from "@/components/settings/security_part";
 
 import { sectionStyles } from "@/styles/settings/settings-section.styles";
 
@@ -47,30 +52,18 @@ export default function SettingsSections({
   return (
     <>
       <SettingsSection title="Security">
-        <SettingRow
-          icon="finger-print-outline"
-          title="Biometric Authentication"
-          description="Unlock using fingerprint or Face ID"
-          value={biometric}
-          onValueChange={onBiometricChange}
-        />
+        <BiometricSetting value={biometric} onValueChange={onBiometricChange} />
 
         <SettingsSeparator />
 
-        <SettingRow
-          icon="lock-closed-outline"
-          title="Automatic Lock"
-          description="Lock your vault when inactive"
+        <AutomaticLockSetting
           value={autoLock}
           onValueChange={onAutoLockChange}
         />
 
         <SettingsSeparator />
 
-        <SettingRow
-          icon="copy-outline"
-          title="Clipboard Protection"
-          description="Manage copied password behavior"
+        <ClipboardProtectionSetting
           value={clipboard}
           onValueChange={onClipboardChange}
         />

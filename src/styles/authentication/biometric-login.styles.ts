@@ -1,0 +1,143 @@
+
+import { StyleSheet } from "react-native";
+
+export const biometricStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8F7F4",
+    paddingHorizontal: 25,
+    justifyContent: "space-between",
+    paddingTop: 65,
+    paddingBottom: 30,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "#F8F7F4",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 14,
+  },
+  loadingText: {
+    color: "#888888",
+    fontSize: 13,
+  },
+  topSection: {
+    alignItems: "center",
+  },
+  logo: {
+    width: 58,
+    height: 58,
+    borderRadius: 19,
+    backgroundColor: "#252B40",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brand: {
+    color: "#252B40",
+    fontSize: 27,
+    fontWeight: "900",
+    marginTop: 12,
+    letterSpacing: 0.5,
+  },
+  tagline: {
+    color: "#B08A45",
+    fontSize: 9,
+    fontWeight: "800",
+    letterSpacing: 2,
+    marginTop: 5,
+  },
+  authSection: {
+    alignItems: "center",
+    width: "100%",
+  },
+  biometricCircle: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: "#F1EBDD",
+    borderWidth: 1,
+    borderColor: "#E8DCC3",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 32,
+  },
+  title: {
+    color: "#252B40",
+    fontSize: 25,
+    fontWeight: "800",
+    textAlign: "center",
+  },
+  subtitle: {
+    color: "#858585",
+    fontSize: 13,
+    lineHeight: 21,
+    textAlign: "center",
+    maxWidth: 290,
+    marginTop: 12,
+  },
+  status: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 24,
+    marginBottom: 28,
+  },
+  statusDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  statusText: {
+    color: "#777777",
+    fontSize: 11,
+    fontWeight: "600",
+  },
+  authButton: {
+    width: "100%",
+    minHeight: 56,
+    borderRadius: 16,
+    backgroundColor: "#252B40",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 11,
+    shadowColor: "#252B40",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  disabledButton: {
+    opacity: 0.55,
+  },
+  authButtonText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  passwordButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 18,
+  },
+  passwordButtonText: {
+    color: "#B08A45",
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+  },
+  footerText: {
+    color: "#999999",
+    fontSize: 10,
+  },
+});
