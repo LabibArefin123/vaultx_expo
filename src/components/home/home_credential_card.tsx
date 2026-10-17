@@ -1,19 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
-import { COLORS, DEMO_CREDENTIALS } from "@/constants/vault";
+import { COLORS } from "@/constants/vault";
+import type { Credential } from "@/types/credential.types";
 
 import { credentialStyles } from "@/styles/home/home_credential.styles";
-
-type Credential = (typeof DEMO_CREDENTIALS)[number];
 
 type HomeCredentialCardProps = {
   item: Credential;
 };
 
 export default function HomeCredentialCard({ item }: HomeCredentialCardProps) {
+  const router = useRouter();
+
   return (
-    <View style={credentialStyles.credentialCard}>
+    <Pressable
+      style={credentialStyles.credentialCard}
+      onPress={() =>
+        router.push({
+          pathname: "/credential/[id]",
+          params: { id: String(item.id) },
+        })
+      }
+    >
       <View
         style={[
           credentialStyles.credentialIcon,
@@ -29,7 +39,6 @@ export default function HomeCredentialCard({ item }: HomeCredentialCardProps) {
 
       <View style={credentialStyles.credentialInfo}>
         <Text style={credentialStyles.credentialTitle}>{item.title}</Text>
-
         <Text style={credentialStyles.credentialUsername}>{item.username}</Text>
       </View>
 
@@ -43,6 +52,6 @@ export default function HomeCredentialCard({ item }: HomeCredentialCardProps) {
         color={COLORS.muted}
         style={credentialStyles.chevron}
       />
-    </View>
+    </Pressable>
   );
 }

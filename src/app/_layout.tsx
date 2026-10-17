@@ -1,10 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { SQLiteProvider } from "expo-sqlite";
 
 import { COLORS } from "@/constants/vault";
+import { initializeDatabase } from "@/database/database";
 
-export default function RootLayout() {
+function AppTabs() {
   return (
     <>
       <StatusBar style="dark" backgroundColor={COLORS.background} />
@@ -71,7 +73,36 @@ export default function RootLayout() {
             ),
           }}
         />
+
+        <Tabs.Screen
+          name="add-credential"
+          options={{
+            href: null,
+          }}
+        />
+
+        <Tabs.Screen
+          name="credential/[id]"
+          options={{
+            href: null,
+          }}
+        />
+
+        <Tabs.Screen
+          name="edit-credential/[id]"
+          options={{
+            href: null,
+          }}
+        />
       </Tabs>
     </>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <SQLiteProvider databaseName="vaultx.db" onInit={initializeDatabase}>
+      <AppTabs />
+    </SQLiteProvider>
   );
 }

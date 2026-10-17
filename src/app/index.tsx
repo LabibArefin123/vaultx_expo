@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { ScrollView, Text } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { DEMO_CREDENTIALS, type CredentialCategory } from "@/constants/vault";
+import { type CredentialCategory } from "@/constants/vault";
 
 import {
   HomeCategories,
@@ -14,21 +14,23 @@ import {
   HomeVaultHeader,
 } from "@/components/home";
 
+import { useCredentials } from "@/hooks/use_credentials";
 import { mainStyles } from "@/styles/home/home_main.styles";
+import { COLORS } from "@/constants/vault";
 
 export default function HomeScreen() {
   const [selectedCategory, setSelectedCategory] =
     useState<CredentialCategory>("All");
 
-  const credentials = useMemo(() => {
+  const { credentials, loading } = useCredentials();
+
+  const filteredCredentials = useMemo(() => {
     if (selectedCategory === "All") {
-      return DEMO_CREDENTIALS.slice(0, 4);
+      return credentials.slice(0, 4);
     }
 
-    return DEMO_CREDENTIALS.filter(
-      (item) => item.category === selectedCategory,
-    );
-  }, [selectedCategory]);
+    return credentials.filter((item) => item.category === selectedCategory);
+  }, [credentials, selectedCategory]);
 
   return (
     <SafeAreaView style={mainStyles.safeArea}>
@@ -42,14 +44,22 @@ export default function HomeScreen() {
 
         <HomeVaultHeader />
 
-        <HomeStats />
+        {loading ? (
+          <View style={{ paddingVertical: 30 }}>
+            <ActivityIndicator color={COLORS.primary} />
+          </View>
+        ) : (
+          <>
+            <HomeStats credentials={credentials} />
 
-        <HomeCategories
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-        />
+            <HomeCategories
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
 
-        <HomeCredentialList credentials={credentials} />
+            <HomeCredentialList credentials={filteredCredentials} />
+          </>
+        )}
 
         <HomeGenerator />
 

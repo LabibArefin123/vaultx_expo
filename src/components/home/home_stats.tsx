@@ -1,13 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 
-import { DEMO_CREDENTIALS } from "@/constants/vault";
+import type { Credential } from "@/types/credential.types";
+
 import { statsStyles } from "@/styles/home/home_stats.styles";
 
-export default function HomeStats() {
-  const favoriteCount = DEMO_CREDENTIALS.filter((item) => item.favorite).length;
+type HomeStatsProps = {
+  credentials: Credential[];
+};
 
-  const categoriesCount = 5;
+export default function HomeStats({ credentials }: HomeStatsProps) {
+  const favoriteCount = credentials.filter((item) => item.favorite).length;
+
+  const categoriesCount = new Set(credentials.map((item) => item.category))
+    .size;
 
   return (
     <View style={statsStyles.statsRow}>
@@ -16,8 +22,7 @@ export default function HomeStats() {
           <Ionicons name="key-outline" size={20} color="#5269C8" />
         </View>
 
-        <Text style={statsStyles.statNumber}>{DEMO_CREDENTIALS.length}</Text>
-
+        <Text style={statsStyles.statNumber}>{credentials.length}</Text>
         <Text style={statsStyles.statLabel}>Saved items</Text>
       </View>
 
@@ -27,7 +32,6 @@ export default function HomeStats() {
         </View>
 
         <Text style={statsStyles.statNumber}>{favoriteCount}</Text>
-
         <Text style={statsStyles.statLabel}>Favorites</Text>
       </View>
 
@@ -37,7 +41,6 @@ export default function HomeStats() {
         </View>
 
         <Text style={statsStyles.statNumber}>{categoriesCount}</Text>
-
         <Text style={statsStyles.statLabel}>Categories</Text>
       </View>
     </View>

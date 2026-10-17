@@ -1,14 +1,12 @@
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-import { DEMO_CREDENTIALS } from "@/constants/vault";
+import type { Credential } from "@/types/credential.types";
 
 import HomeCredentialCard from "@/components/home/home_credential_card";
 import HomeEmptyState from "@/components/home/home_empty_state";
 
 import { credentialStyles } from "@/styles/home/home_credential.styles";
-
-type Credential = (typeof DEMO_CREDENTIALS)[number];
 
 type HomeCredentialListProps = {
   credentials: Credential[];
